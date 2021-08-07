@@ -2,7 +2,9 @@ import * as types from './types';
 
 const initialState = {
     loading_content: false,
-    content: []
+    content: {},
+    loading_included: false,
+    included_content: {}
 };
 
 export default function reducer(state = initialState, action) {
@@ -17,6 +19,19 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 content: payload
+            };
+        case types.LOADING_INCLUDED_CONTENT:
+            return {
+                ...state,
+                loading_included: payload
+            };
+        case types.LOADED_INCLUDED_CONTENT:
+            return {
+                ...state,
+                included_content: {
+                    ...state.included_content,
+                    [payload?.id]: payload
+                }
             };
         default:
             return state;

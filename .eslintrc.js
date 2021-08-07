@@ -16,7 +16,7 @@ module.exports = {
         'no-unused-vars': [2, { args: 'none' }],
         'react/prop-types': ['warn'],
         'prettier/prettier': 'error',
-        'max-len': ['error', { code: 100 }],
+        'max-len': ['error', { code: 150 }],
         'prefer-promise-reject-errors': ['off'],
         'react/jsx-filename-extension': ['off'],
         'no-return-assign': ['off']
