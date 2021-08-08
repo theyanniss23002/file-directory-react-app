@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import { ListItem, ListItemText, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loadIncludedContent } from '../../redux/Common/actions';
 import IncludedItem from './IncludedItem';
-import Loading from '../shared/Loading';
+import { faFolder, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const useStyles = makeStyles({
-    list: {
+    item: {
         '& > svg': {
-            marginRight: 10
+            '&:nth-child(1)': {
+                marginRight: 20
+            },
+            '&:nth-child(2)': {
+                marginRight: 10
+            }
         }
     },
     attachment: {
@@ -23,8 +29,6 @@ const useStyles = makeStyles({
 const Item = ({ el, attachment = false, handleSetCurrentId, currentId }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
-
-    const { loading_included } = useSelector(({ common }) => common);
 
     const [openFolder, setOpenFolder] = useState(false);
 
@@ -41,11 +45,11 @@ const Item = ({ el, attachment = false, handleSetCurrentId, currentId }) => {
 
     return (
         <div className={attachment.toString() && classes.attachment}>
-            <ListItem button className={classes.list} onClick={handleOpenFolder}>
+            <ListItem button className={classes.item} onClick={handleOpenFolder}>
                 {openFolder ? <ExpandLess /> : <ExpandMore />}
+                {openFolder ? <FontAwesomeIcon icon={faFolderOpen} /> : <FontAwesomeIcon icon={faFolder} />}
                 <ListItemText primary={el.title} />
             </ListItem>
-            {currentId === el.id && loading_included && <Loading linear={true} />}
             <IncludedItem isOpen={openFolder} el={el} handleSetCurrentId={handleSetCurrentId} currentId={currentId} />
         </div>
     );
@@ -54,7 +58,7 @@ const Item = ({ el, attachment = false, handleSetCurrentId, currentId }) => {
 Item.propTypes = {
     el: PropTypes.object,
     id: PropTypes.number,
-    attachment: PropTypes.any,
+    attachment: PropTypes.string,
     handleSetCurrentId: PropTypes.func,
     currentId: PropTypes.number
 };

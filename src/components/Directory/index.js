@@ -4,6 +4,7 @@ import { loadContent } from '../../redux/Common/actions';
 import Loading from '../shared/Loading';
 import { List, makeStyles } from '@material-ui/core';
 import Item from './Item';
+import titles from '../../helpers';
 
 const useStyles = makeStyles({
     title: {
@@ -26,7 +27,7 @@ const Directory = () => {
 
     return (
         <>
-            <h1 className={classes.title}>Структура директории</h1>
+            <h1 className={classes.title}>{titles.MAIN_H1}</h1>
             {loading_content && <Loading circular={true} />}
             {content.children?.length > 0 ? (
                 <List>
@@ -35,7 +36,7 @@ const Directory = () => {
                     ))}
                 </List>
             ) : (
-                !loading_content && <span>Данных нет</span>
+                !loading_content && <span>{titles.NO_DATA}</span>
             )}
         </>
     );

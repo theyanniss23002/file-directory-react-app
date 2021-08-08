@@ -1,11 +1,8 @@
 import React from 'react';
 import { CircularProgress, LinearProgress, makeStyles } from '@material-ui/core';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
-    linear: {
-        paddingBottom: 35
-    },
     circular: {
         width: '2%',
         height: '3%',
@@ -22,11 +19,7 @@ const Loading = ({ linear = false, circular = false }) => {
     const classes = useStyles();
     return (
         <>
-            {linear && (
-                <div className={classes.linear}>
-                    <LinearProgress />
-                </div>
-            )}
+            {linear && <LinearProgress />}
             {circular && (
                 <div className={classes.circular}>
                     <CircularProgress />
