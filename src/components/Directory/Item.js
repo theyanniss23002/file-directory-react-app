@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ListItem, ListItemText, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadIncludedContent } from '../../redux/Common/actions';
 import IncludedItem from './IncludedItem';
 import { faFolder, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
@@ -30,12 +30,15 @@ const Item = ({ el, attachment = false, handleSetCurrentId, currentId }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const { included_content } = useSelector(({ common }) => common);
     const [openFolder, setOpenFolder] = useState(false);
 
     const handleOpenFolder = () => {
-        if (el.children && !openFolder) {
+        if (!openFolder) {
             handleSetCurrentId(el.id);
-            dispatch(loadIncludedContent(el.id));
+            if (Object.keys(included_content)?.length === 0 || !included_content[el.id]) {
+                dispatch(loadIncludedContent(el.id));
+            }
             setOpenFolder(true);
         }
         if (openFolder) {
@@ -58,7 +61,7 @@ const Item = ({ el, attachment = false, handleSetCurrentId, currentId }) => {
 Item.propTypes = {
     el: PropTypes.object,
     id: PropTypes.number,
-    attachment: PropTypes.string,
+    attachment: PropTypes.bool,
     handleSetCurrentId: PropTypes.func,
     currentId: PropTypes.number
 };

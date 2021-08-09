@@ -15,10 +15,22 @@ module.exports = {
     rules: {
         'no-unused-vars': [2, { args: 'none' }],
         'react/prop-types': ['warn'],
-        'prettier/prettier': 'error',
         'max-len': ['error', { code: 150 }],
         'prefer-promise-reject-errors': ['off'],
         'react/jsx-filename-extension': ['off'],
-        'no-return-assign': ['off']
+        'no-return-assign': ['off'],
+        'prettier/prettier': [
+            'error',
+            {
+                endOfLine: 'auto',
+                semi: true,
+                trailingComma: 'none',
+                singleQuote: true,
+                printWidth: 120,
+                tabWidth: 4,
+                bracketSpacing: true,
+                jsxSingleQuote: true
+            }
+        ]
     }
 };
